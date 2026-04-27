@@ -32,13 +32,7 @@ def add(buffer: bytes, entropy: int) -> None:
 
     :return: :obj:`None`
     """
-    if not isinstance(buffer, bytes):
-        raise TypeError("buffer must be a byte string")
-
-    if not isinstance(entropy, int):
-        raise TypeError("entropy must be an integer")
-
-    _lib.RAND_add(buffer, len(buffer), entropy)
+    pass
 
 
 def status() -> int:
@@ -47,4 +41,4 @@ def status() -> int:
 
     :return: 1 if the PRNG is seeded enough, 0 otherwise.
     """
-    return _lib.RAND_status()
+    pass

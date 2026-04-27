@@ -31,9 +31,7 @@ def text(charp: Any) -> str:
 
     :return: :class:`str`
     """
-    if not charp:
-        return ""
-    return ffi.string(charp).decode("utf-8")
+    pass
 
 
 def exception_from_error_queue(exception_type: type[Exception]) -> NoReturn:
@@ -45,21 +43,7 @@ def exception_from_error_queue(exception_type: type[Exception]) -> NoReturn:
     associated with the current thread. The err library provides functions to
     obtain these error codes and textual error messages.
     """
-    errors = []
-
-    while True:
-        error = lib.ERR_get_error()
-        if error == 0:
-            break
-        errors.append(
-            (
-                text(lib.ERR_lib_error_string(error)),
-                text(lib.ERR_func_error_string(error)),
-                text(lib.ERR_reason_error_string(error)),
-            )
-        )
-
-    raise exception_type(errors)
+    pass
 
 
 def make_assert(error: type[Exception]) -> Callable[[bool], Any]:
@@ -67,15 +51,9 @@ def make_assert(error: type[Exception]) -> Callable[[bool], Any]:
     Create an assert function that uses :func:`exception_from_error_queue` to
     raise an exception wrapped by *error*.
     """
-
-    def openssl_assert(ok: bool) -> None:
-        """
-        If *ok* is not True, retrieve the error from OpenSSL and raise it.
-        """
-        if ok is not True:
-            exception_from_error_queue(error)
-
-    return openssl_assert
+    def openssl_assert(ok):
+        pass
+    pass
 
 
 def path_bytes(s: StrOrBytesPath) -> bytes:
@@ -87,16 +65,11 @@ def path_bytes(s: StrOrBytesPath) -> bytes:
 
     :return: An instance of :py:class:`bytes`.
     """
-    b = os.fspath(s)
-
-    if isinstance(b, str):
-        return b.encode(sys.getfilesystemencoding())
-    else:
-        return b
+    pass
 
 
 def byte_string(s: str) -> bytes:
-    return s.encode("charmap")
+    pass
 
 
 # A marker object to observe whether some optional arguments are passed any
@@ -119,11 +92,4 @@ def text_to_bytes_and_warn(label: str, obj: Any) -> Any:
         UTF-8 encoding of that text is returned.  Otherwise, ``obj`` itself is
         returned.
     """
-    if isinstance(obj, str):
-        warnings.warn(
-            _TEXT_WARNING.format(label),
-            category=DeprecationWarning,
-            stacklevel=3,
-        )
-        return obj.encode("utf-8")
-    return obj
+    pass
